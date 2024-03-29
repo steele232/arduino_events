@@ -1,0 +1,39 @@
+<div>
+    <div>
+        <h1 class="text-2xl font-bold mb-4">Arduino Event Monitor</h1>
+        <div class="mb-4">
+            Time since last LoRa Message: <%= @time_since_last_lora_msg %> seconds
+        </div>
+        <div class="mb-4">
+            Time since last WiFi Message: <%= @time_since_last_wifi_msg %> seconds
+        </div>
+        <div class="mb-4">
+            Most Recent RSSI Value: <%= @last_rssi_value %> seconds
+        </div>
+        <h2 class="text-lg font-bold mb-2">Most recent events</h2>
+        <p class="mb-4">NOTE: Top = most recent</p>
+    </div>
+    <div class="container mx-auto">
+        <table class="table-auto border-collapse border border-gray-500 max-h-48 overflow-y-auto">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="px-4 py-2">Server Timestamp</th>
+                    <th class="px-4 py-2">Device Timestamp</th>
+                    <th class="px-4 py-2">Packet Text</th>
+                    <th class="px-4 py-2">RSSI (Signal Strength)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%= for ev <- @events do %>
+                <tr>
+                    <td class="border px-4 py-2"><%= Calendar.strftime(ev.inserted_at, "%Y-%m-%d %I:%M:%S %p") %></td>
+                    <td class="border px-4 py-2"><%= ev.device_timestamp %></td>
+                    <td class="border px-4 py-2"><%= ev.packet %></td>
+                    <td class="border px-4 py-2"><%= ev.rssi %></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+
+</div>
